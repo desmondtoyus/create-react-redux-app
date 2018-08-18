@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "desmond2",
+    "password": "adedeji",
+    "database": "auralcloud",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "auralcloud",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "auralcloud",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+
+
+

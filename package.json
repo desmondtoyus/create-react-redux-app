@@ -1,0 +1,20 @@
+{
+  "name": "react-aural-cloud",
+  "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.2",
+    "mysql2": "^1.6.1",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "sequelize": "^4.38.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.6.1"
+  }
+}
