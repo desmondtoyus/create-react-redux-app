@@ -1,13 +1,17 @@
 {
-  "name": "react-aural-cloud",
+  "name": "create-react-redux-app",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd client && yarn start",
+    "client": "node scripts/start-client.js",
+    "build": "node scripts/build.js",
+    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"nodemon server.js\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "mysql2": "^1.6.1",
     "redux": "^4.0.0",
@@ -15,6 +19,7 @@
     "sequelize": "^4.38.0"
   },
   "devDependencies": {
-    "concurrently": "^3.6.1"
+    "concurrently": "^3.6.1",
+    "nodemon": "^1.18.3"
   }
 }
