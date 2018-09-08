@@ -5,7 +5,7 @@ exports.listAuthors = function(req, res) {
   // Here we add an "include" property to our options in our findAll query
   // We set the value to an array of the models we want to include in a left outer join
   // In this case, just db.Post
-  db.Author.findAll({
+  db.Authors.findAll({
     include: [db.Post]
   })
     .then(dbAuthor => res.status(201).send(dbAuthor))
@@ -13,7 +13,7 @@ exports.listAuthors = function(req, res) {
 };
 
 exports.listAuthor = function(req, res) {
-    db.Author.findOne({
+    db.Authors.findOne({
         where:{ id: req.params.id },
       include: [db.Post]
     })
@@ -22,20 +22,20 @@ exports.listAuthor = function(req, res) {
   };
 
 exports.createAuthor = function(req, res) {
-  db.Author.create(req.body)
+  db.Authors.create(req.body)
     .then(dbAuthor => res.status(201).send(dbAuthor))
     .catch(error => res.status(400).send(error));
 };
 
 exports.deleteAuthor = function(req, res) {
-  db.Author.findOne({
+  db.Authors.findOne({
     where: {
       id: req.params.id
     }
   })
     .then(dbAuthor => {
       if (dbAuthor) {
-        db.Author.destroy({
+        db.Authors.destroy({
           where: {
             id: req.params.id
           }
@@ -50,13 +50,13 @@ exports.deleteAuthor = function(req, res) {
 };
 
 exports.updateAuthor = function(req, res) {
-  db.Author.findOne({
+  db.Authors.findOne({
     where: {
       id: req.body.id
     }
   }).then(author => {
     if (author) {
-      db.Author.update(req.body, {
+      db.Authors.update(req.body, {
         where: {
           id: req.body.id
         }
