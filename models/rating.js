@@ -1,5 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
     var Rating = sequelize.define("Rating", {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+          },
       star: {
         type: DataTypes.INTEGER,
         allowNull: false,

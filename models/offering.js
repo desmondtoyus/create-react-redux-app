@@ -1,6 +1,11 @@
 
 module.exports = function(sequelize, DataTypes) {
 var  Offering = sequelize.define("Offering", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
     name: {
         allowNull: false,
         type: DataTypes.STRING,

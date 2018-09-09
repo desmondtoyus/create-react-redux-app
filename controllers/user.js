@@ -16,7 +16,7 @@ exports.listAuthors = function(req, res) {
 exports.listAuthor = function(req, res) {
     db.users.findOne({
         where:{ id: req.params.id },
-      include: [db.comments]
+      include: [db.Comment]
     })
       .then(dbAuthor => res.status(201).send(dbAuthor))
       .catch(error => res.status(400).send(error));

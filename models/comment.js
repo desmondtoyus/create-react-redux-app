@@ -1,5 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
     var Comment = sequelize.define("Comment", {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
       body: {
         type: DataTypes.TEXT,
         allowNull: false,
@@ -28,14 +33,16 @@ module.exports = function(sequelize, DataTypes) {
           allowNull: false
         }
       }),
-
-      Comment.hasMany(models.Reply, {
-        onDelete: "CASCADE",
+      
+      Comment.belongsTo(models.Reply, {
         foreignKey: {
-          allowNull: true
+          allowNull: false
         }
       })
     };
+
+
+ 
   
     return Comment;
   };

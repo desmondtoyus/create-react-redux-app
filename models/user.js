@@ -2,6 +2,11 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(sequelize, DataTypes) {
 var  User = sequelize.define("User", {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -92,7 +97,14 @@ hooks: {
             foreignKey: {
               allowNull: true
             }
-          })
+          }),
+          User.belongsToMany(models.Reply, {
+            through: {
+              model: models.Comment,
+              unique: false
+            },
+            constraints: false
+          });
   }
   User.prototype.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
