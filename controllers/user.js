@@ -1,16 +1,19 @@
 var db = require("../models");
-
+var func = require("../utilities/token");
 // exports.create = function(req, res, next) {
 exports.listUsers = function(req, res) {
-  // Here we add an "include" property to our options in our findAll query
-  // We set the value to an array of the models we want to include in a left outer join
-  // In this case, just db.Post
-  db.User.findAll({
-    include: [db.Comment]
-
-  })
-    .then(dbAuthor => res.status(201).send(dbAuthor))
-    .catch(error => res.status(400).send(error));
+  var token = func.getToken(req.headers);
+  if (token) {
+    db.User.findAll({
+      include: [db.Comment]
+  
+    })
+      .then(dbAuthor => res.status(201).send(dbAuthor))
+      .catch(error => res.status(400).send(error));
+  } else {
+    return res.status(403).send({success: false, msg: 'Unauthorized.'});
+  }
+ 
 };
 
 exports.listUser= function(req, res) {
