@@ -23,21 +23,3 @@ module.exports = function(passport) {
     })
 }))
 }
-
-// db.Comment.findOne({
-//     where: {
-//       id: req.params.id
-//     }
-//   })
-//     .then(dbComment => {
-
-    // function(err, user) {
-    //     if (err) {
-    //         return done(err, false);
-    //     }
-    //     if (user) {
-    //         done(null, user);
-    //     } else {
-    //         done(null, false);
-    //     }
-    // });

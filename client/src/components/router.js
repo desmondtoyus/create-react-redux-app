@@ -7,7 +7,7 @@ import Home from "../pages/home";
 import NotFound from "../pages/notfound";
 
 const Router = () => (
-  <MainWrapper>
+  <MainWrapper >
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />

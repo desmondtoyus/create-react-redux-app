@@ -20,6 +20,10 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Paper from "@material-ui/core/Paper";
 import {signInModal, signUpModal, closeUserModal } from "../redux/actions/user.action";
 
+// import createHistory from 'history/createBrowserHistory'
+ 
+// const history = createHistory()
+
 
 const styles = theme => ({
   root: {
@@ -87,7 +91,8 @@ class MainWrapper extends React.Component {
     this.props.closeUserModal();
   };
 
-  handleSignUp = ()=>{
+  handleSignUp = (e)=>{
+    e.preventDefault();
     this.props.signUpModal(); 
   }
 
@@ -96,7 +101,6 @@ class MainWrapper extends React.Component {
   }
   render() {
     const { classes } = this.props;
-
     return (
       <div>
       <AppBar position="static">
