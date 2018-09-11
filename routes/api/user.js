@@ -12,8 +12,8 @@ router.route("/")
 // Matches with "/api/author/:id"
 router
   .route("/:id")
-  .get(userController.listUser )
-  .delete(userController.deleteUser);
+  .get(passport.authenticate('jwt', { session: false}), userController.listUser )
+  .delete(passport.authenticate('jwt', { session: false}), userController.deleteUser);
 
 
 module.exports = router;

@@ -1,4 +1,4 @@
-import {FETCH_USERS, USER_LOGIN_MODAL, CLOSE_USER_MODAL,
+import {FETCH_USERS, USER_LOGIN_MODAL, CLOSE_USER_MODAL, USER_INPUT,
   USER_SIGNUP_MODAL,  FETCH_USERS_ERROR, USER_LOGIN, USER_SIGNUP,USER_SIGNUP_ERROR, USER_LOGIN_ERROR   } from "../actions/action.types";
 
 const  INITIAL_STATE ={
@@ -9,7 +9,10 @@ const  INITIAL_STATE ={
     password:'',
     name:'',
     loader: false,
-    modalOpen:false
+    modalOpen:false,
+    errorMsg:'',
+    password:'',
+
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -22,17 +25,19 @@ export default function(state = INITIAL_STATE, action) {
       case FETCH_USERS_ERROR :
       case USER_LOGIN_ERROR :
       case USER_SIGNUP_ERROR :
-        return { ...INITIAL_STATE};
+        return { ...INITIAL_STATE, errorMsg:action.errorMsg, loader: false,};
         case USER_LOGIN:
-        return { ...INITIAL_STATE};
+        return { ...state, user:action.payload,loader: false,};
+        case USER_INPUT:
+        return { ...state, [action.prop]: action.value};
         case USER_SIGNUP :
-        return { ...INITIAL_STATE};
+        return { ...state};
         case USER_SIGNUP_MODAL:
-        return { ...INITIAL_STATE, isSignUp: true, modalOpen:true  };
+        return { ...state, isSignUp: true, modalOpen:true  };
         case USER_LOGIN_MODAL:
-        return { ...INITIAL_STATE, isSignUp: false, modalOpen:true };
+        return { ...state, isSignUp: false, modalOpen:true };
         case CLOSE_USER_MODAL:
-        return { ...INITIAL_STATE, isSignUp: false, modalOpen:false };
+        return { ...state, isSignUp: false, modalOpen:false };
       default:
         return state;
     }

@@ -50,6 +50,9 @@ const styles = theme => ({
 
 class Home extends React.Component {
 
+  componentDidMount(){
+    console.log(this.props.history.location)
+  }
 
   handleChange = (event, value) => {
         this.props.listUsers(value);

@@ -8,8 +8,10 @@ import rootReducer from "./redux/store";
 import "./App.css";
 import "./css/index.css";
 import App from "./App";
+
 // import registerServiceWorker from "./redux/store";
 import { composeWithDevTools } from "redux-devtools-extension";
+
 const middleware = [reduxThunk];
 const store = createStore(
   rootReducer,

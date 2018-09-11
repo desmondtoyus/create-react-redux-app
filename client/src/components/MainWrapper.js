@@ -18,7 +18,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import LockIcon from "@material-ui/icons/LockOutlined";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Paper from "@material-ui/core/Paper";
-import {signInModal, signUpModal, closeUserModal } from "../redux/actions/user.action";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {signInModal, signUpModal, closeUserModal, signIn, changeInput, logOut } from "../redux/actions/user.action";
+import green from '@material-ui/core/colors/green';
 
 // import createHistory from 'history/createBrowserHistory'
  
@@ -61,6 +63,13 @@ const styles = theme => ({
     textAlign:"center",
     margin:"auto"
   },
+  fabProgress: {
+    color: green[500],
+    position: 'absolute',
+    top: -6,
+    left: -6,
+    zIndex: 1,
+  },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: "flex",
@@ -83,11 +92,23 @@ const styles = theme => ({
 
 class MainWrapper extends React.Component {
 
-  handleOpen = () => {
+  handleOpen = (e) => {
+    e.preventDefault();
     this.props.signInModal(); 
   };
 
-  handleClose = () => {
+  handleLogOut = (e) => {
+    e.preventDefault();
+    this.props.logOut(); 
+  };
+
+  handleChange = (event) => {
+    console.log(event.currentTarget.name, '=' , event.currentTarget.value)
+    this.props.changeInput({ prop: event.currentTarget.name, value: event.currentTarget.value });
+  }
+
+  handleClose = (e) => {
+    e.preventDefault();
     this.props.closeUserModal();
   };
 
@@ -96,11 +117,17 @@ class MainWrapper extends React.Component {
     this.props.signUpModal(); 
   }
 
-  handleSubmit = ()=>{
+  handleSubmit = (e)=>{
+
+    const { email, password} = this.props
+    e.preventDefault();
+    this.props.changeInput({ prop: 'loader', value: true });
+    this.props.signIn({email, password})
     
   }
   render() {
     const { classes } = this.props;
+    const{email, password, loader} = this.props;
     return (
       <div>
       <AppBar position="static">
@@ -115,6 +142,7 @@ class MainWrapper extends React.Component {
               <Link to='about' style={{color:'white'}}>About </Link>
             </Typography>
             <Button color="inherit" onClick={this.handleOpen}>Login</Button>
+            <Button color="inherit" onClick={this.handleLogOut}>Log Out</Button>
           </Toolbar>
         </AppBar>
         <Modal
@@ -142,6 +170,7 @@ class MainWrapper extends React.Component {
                         type="text"
                         autoComplete="name"
                         autoFocus
+                        onChange={this.handleChange}
                       /> </FormControl>:null}
 
                     <FormControl margin="normal" required fullWidth>
@@ -151,18 +180,22 @@ class MainWrapper extends React.Component {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        value={email}
+                        onChange={this.handleChange}
                       />
                     </FormControl>
                     <FormControl margin="normal" required fullWidth>
                       <InputLabel htmlFor="password">Password</InputLabel>
                       <Input
                         name="password"
+                        value ={password}
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={this.handleChange}
                       />
                     </FormControl>
-                    {!this.props.isSignUp ? <Button
+                                      {!this.props.isSignUp ? <Button
                       type="submit"
                       fullWidth
                       variant="raised"
@@ -170,6 +203,8 @@ class MainWrapper extends React.Component {
                       className={classes.submit}
                       onClick={this.handleSubmit}
                     >
+                      {loader && <CircularProgress  className={classes.fabProgress} />}
+
                       Sign in
                     </Button>:null}
                     <Button
@@ -226,5 +261,5 @@ const mapStateToProps = state => {
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, {signInModal, signUpModal, closeUserModal })
+  connect(mapStateToProps, {signIn, changeInput, signInModal, signUpModal, logOut, closeUserModal })
 )(MainWrapper);

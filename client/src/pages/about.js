@@ -17,7 +17,9 @@ const styles = theme => ({
 
 
 class About extends React.Component{
-
+  componentDidMount(){
+    console.log(this.props.history.location)
+  }
 
 render(){
   const { classes } = this.props;
