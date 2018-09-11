@@ -17,7 +17,8 @@ var  User = sequelize.define("User", {
       }
     },
     password: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     first_name: {
         type: DataTypes.STRING,
