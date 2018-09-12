@@ -24,10 +24,10 @@ var  Offering = sequelize.define("Offering", {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      // images: {
-      //   allowNull: true,
-      //   type: DataTypes.ARRAY(DataTypes.INTEGER)
-      // },
+      images: {
+        allowNull: true,
+        type: DataTypes.ARRAY(DataTypes.INTEGER)
+      },
 
       city: {
         type: DataTypes.STRING,
