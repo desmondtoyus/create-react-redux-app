@@ -19,9 +19,8 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Paper from "@material-ui/core/Paper";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {signInModal, signUpModal, closeUserModal, signIn, changeInput, logOut } from "../redux/actions/user.action";
+import {signInModal, signUpModal, closeUserModal, signIn, changeInput, logOut, verifyUsers } from "../redux/actions/user.action";
 import green from '@material-ui/core/colors/green';
-
 // import createHistory from 'history/createBrowserHistory'
  
 // const history = createHistory()
@@ -91,6 +90,31 @@ const styles = theme => ({
 });
 
 class MainWrapper extends React.Component {
+componentDidMount(){
+  if (localStorage.getItem('jwtToken')) {
+    let token =  localStorage.getItem('jwtToken')
+  const tokenParts = token.split(' ');
+  const encodedPayload =  tokenParts[1];
+ let user={
+   token:encodedPayload
+ }
+  this.props.verifyUsers(user);
+    
+  } else {
+    console.log('NOT LOGGED IN');
+    // REDIRECT TO LOGOUT
+  }
+  
+}
+
+componentWillUpdate(nextProps){
+  if (this.props.user !== nextProps.user) {
+    if(nextProps.user){
+    this.props.history.push('/about')
+    }
+  }
+
+}
 
   handleOpen = (e) => {
     e.preventDefault();
@@ -223,6 +247,8 @@ class MainWrapper extends React.Component {
           </div>
         </Modal>
         {this.props.children}
+
+        {/* FOOTER */}
       </div>
     );
   }
@@ -238,7 +264,7 @@ MainWrapper.propTypes = {
 // export default MainWrapper;
 
 const mapStateToProps = state => {
-  const {   users, 
+  const {   user, 
     tabIndex,
     isSignUp,
     modalOpen,
@@ -247,7 +273,7 @@ const mapStateToProps = state => {
     name,
     loader} = state.users
 
-  return { users, 
+  return { user, 
     tabIndex,
     isSignUp,
     modalOpen,
@@ -261,5 +287,5 @@ const mapStateToProps = state => {
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, {signIn, changeInput, signInModal, signUpModal, logOut, closeUserModal })
+  connect(mapStateToProps, {signIn, changeInput, signInModal, signUpModal, logOut, closeUserModal, verifyUsers })
 )(MainWrapper);

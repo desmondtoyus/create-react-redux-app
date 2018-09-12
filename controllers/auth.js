@@ -4,6 +4,8 @@ require('../config/passport')(passport);
 var jwt = require('jsonwebtoken');
 var db = require("../models");
 
+
+
   exports.login = function(req, res) {
     db.User.findOne({
         where:{
@@ -18,7 +20,7 @@ var db = require("../models");
         let verifiedPassword=  user.comparePassword(req.body.password);
        if (verifiedPassword) {
   var token = jwt.sign(user.toJSON(), settings.secret);
-  res.json({success: true, token: 'JWT ' + token});
+  res.json({success: true, token: 'JWT ' + token, user});
        }
        else{
   res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
@@ -41,5 +43,10 @@ exports.register =  function(req, res) {
     }
   };
   
+  exports.verifyUser = function(req, res){
+    console.log("USER = ", jwt.decode(req.body.token, settings.secret))
+let user = jwt.decode(req.body.token, settings.secret)
+res.json({user});
+  }
 
-  
+

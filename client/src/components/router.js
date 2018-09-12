@@ -5,9 +5,10 @@ import MainWrapper from "./MainWrapper";
 import About from "../pages/about";
 import Home from "../pages/home";
 import NotFound from "../pages/notfound";
-
+import createHistory from 'history/createBrowserHistory'
+const history = createHistory()
 const Router = () => (
-  <MainWrapper >
+  <MainWrapper history={history}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />

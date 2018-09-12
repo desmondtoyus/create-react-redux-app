@@ -8,4 +8,7 @@ const authController = require('../../controllers/auth');
   router.route("/register")
   .post(bodyParser, authController.register)
 
+  router.route("/verify")
+  .post( bodyParser, authController.verifyUser)
+
 module.exports = router;
